@@ -31,19 +31,21 @@
 	}
 
 	/* Style untuk ikon DexScreener */
-	.icon {
+.icon {
 	width: 22px;
 	height: 22px;
 	object-fit: contain;
 	vertical-align: middle;
-	opacity: 0.6;  /* atur transparansi ikon */
-	transition: opacity 0.3s ease, transform 0.2s ease;
+	fill: var(--accent); /* 💥 ini yang penting: ubah warna jadi sama seperti ikon lain */
+	opacity: 0.9; /* sedikit transparan saja biar lembut */
+	transition: transform 0.2s ease;
 }
 
 .icon:hover {
-	opacity: 1;    /* jadi solid saat hover */
 	transform: scale(1.05);
+	opacity: 0.9; /* tetap */
 }
+
 
 
 
