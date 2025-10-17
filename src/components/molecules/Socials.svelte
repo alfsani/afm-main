@@ -1,28 +1,25 @@
 <script>
 	import Social from '../atoms/Social.svelte';
-	import { user } from '../../util/discord';
 
-	import { GitHubIcon } from '@indaco/svelte-iconoir/github';
-	import { DiscordIcon } from '@indaco/svelte-iconoir/discord';
-	import { MailIcon } from '@indaco/svelte-iconoir/mail';
-	import { CoffeeCupIcon } from '@indaco/svelte-iconoir/coffee-cup';
+	// import dua ikon dari iconoir
+	import { TwitterIcon } from '@indaco/svelte-iconoir/twitter';
+	import { TelegramIcon } from '@indaco/svelte-iconoir/telegram';
 </script>
 
 <div class="socials-container">
-	<Social tip="xafn" link="https://github.com/xafn">
-		<GitHubIcon color="var(--accent)" />
+	<!-- Twitter -->
+	<Social tip="Twitter" link="https://twitter.com/username_kamu">
+		<TwitterIcon color="var(--accent)" size="22px" />
 	</Social>
 
-	<Social tip={user.username} link={`https://discord.com/users/${user.id}`}>
-		<DiscordIcon color="var(--accent)" />
+	<!-- Telegram -->
+	<Social tip="Telegram" link="https://t.me/username_kamu">
+		<TelegramIcon color="var(--accent)" size="22px" />
 	</Social>
 
-	<Social tip="hey@afn.im" link="mailto:hey@afn.im">
-		<MailIcon color="var(--accent)" />
-	</Social>
-
-	<Social tip="affan" link="https://ko-fi.com/affan">
-		<CoffeeCupIcon color="var(--accent)" />
+	<!-- DexScreener -->
+	<Social tip="DexScreener" link="https://dexscreener.com/yourtokenlink">
+		<img src="/dexscreener.svg" alt="DexScreener" class="icon" />
 	</Social>
 </div>
 
@@ -30,5 +27,24 @@
 	.socials-container {
 		display: flex;
 		gap: 0.75rem;
+		align-items: center;
 	}
+
+	/* Style untuk ikon DexScreener */
+	.icon {
+	width: 22px;
+	height: 22px;
+	object-fit: contain;
+	vertical-align: middle;
+	opacity: 0.6;  /* atur transparansi ikon */
+	transition: opacity 0.3s ease, transform 0.2s ease;
+}
+
+.icon:hover {
+	opacity: 1;    /* jadi solid saat hover */
+	transform: scale(1.05);
+}
+
+
+
 </style>
