@@ -4,12 +4,13 @@
 </script>
 
 <hr />
+
 <footer class="wrapper">
 	<Socials />
 	<h6>
 		Made with pain. &#60;3
 		<Tooltip tip="how to delete">
-			<a href="https://v1.afn.im/" target="_blank" rel="noreferrer"></a>
+			<a href="" target="_blank" rel="noreferrer"></a>
 		</Tooltip>
 	</h6>
 </footer>
@@ -20,55 +21,70 @@
 		height: 1px;
 		border: 0;
 		width: 100%;
-		margin-bottom: 2rem;
+		margin: 2rem 0;
 
 		@media screen and (max-width: 768px) {
-			margin-bottom: 1.5rem;
+			margin: 1.5rem 0;
 		}
 	}
 
-	footer {
-		padding-bottom: 2.4rem;
+	footer.wrapper {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		padding: 1rem 0 2.5rem;
+		color: var(--text-secondary);
+		font-family: var(--font-two);
+		font-size: 0.9rem;
+		width: 100%;
 
-		@media screen and (max-width: 768px) {
+		@media (max-width: 768px) {
 			flex-direction: column;
+			gap: 0.8rem;
+			padding-bottom: 5rem; /* biar tidak nabrak navbar bawah */
+			text-align: center;
 		}
 	}
 
 	h6 {
-		text-align: center;
-		line-height: 2.5rem;
-		margin-top: 0;
+		margin: 0;
+		line-height: 1.8rem;
+		color: var(--text-secondary);
+		font-weight: 400;
+
+		a {
+			margin-left: 0.4rem;
+			text-decoration: none;
+			color: var(--accent);
+			transition: color 0.3s ease;
+
+			&:hover {
+				color: var(--text-primary);
+			}
+		}
 	}
 
 	span {
 		font-family: var(--font-two);
 		background-color: var(--elevation-one);
 		border-radius: 7px;
-		padding: 0.15rem 0.5rem 0.15rem;
-		width: fit-content;
+		padding: 0.15rem 0.5rem;
 		margin-left: 1rem;
 		margin-right: 0.4rem;
 	}
 
-	a {
-		transition: 0.3s var(--bezier-one);
-		font-family: var(--font-two);
-		text-decoration: none;
-		color: var(--text-secondary);
-		font-size: 0.9rem;
-		border-radius: 7px;
-		padding: 0.15rem 0.5rem 0.15rem;
+	/* biar icon sosmed tidak terlalu besar di mobile */
+	:global(.socials-container) {
+		display: flex;
+		gap: 1rem;
 
-		&:hover {
-			font-weight: 400;
-			background-color: var(--accent);
-			color: var(--elevation-one);
-			border-radius: 7px;
-			width: fit-content;
+		@media (max-width: 768px) {
+			gap: 0.75rem;
+
+			svg {
+				width: 20px;
+				height: 20px;
+			}
 		}
 	}
 </style>

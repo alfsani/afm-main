@@ -1,36 +1,39 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
+
 	export let href = '#';
 	export let section = 'home';
 	export let isSelected: boolean;
 
-	import { page } from '$app/stores';
-	let currentPage = $page.url.pathname;
+	$: currentPage = $page.url.pathname;
 
 	async function handleClick() {
-		if (currentPage !== '/') {
-			window.location.href = '/';
+		if (href.startsWith('/')) {
+			await goto(href);
+			return;
 		}
 
-		const el = document.querySelector(href);
-		if (!el) return;
-		el.scrollIntoView(true);
+		if (currentPage === '/') {
+			const el = document.querySelector(href);
+			if (el) el.scrollIntoView({ behavior: 'smooth' });
+		} else {
+			window.location.href = `/${href}`;
+		}
 	}
 </script>
 
 <li class:selected={isSelected}>
 	<button on:click={handleClick}>
 		<div class="icon-container">
-			<slot/>
+			<slot />
 		</div>
-		<h5>
-			{section}
-		</h5>
+		<h5>{section}</h5>
 	</button>
 </li>
 
 <style lang="scss">
 	li {
-		text-decoration: none;
 		list-style: none;
 	}
 
@@ -38,64 +41,70 @@
 		background-color: transparent;
 		border: none;
 		color: var(--text-secondary);
-		font-size: 1.1rem;
+		font-size: 1rem;
 		user-select: none;
 		display: flex;
 		align-items: center;
-		gap: 0.75rem;
-		padding: 13px 25px;
-		border-radius: 100px;
+		gap: 0.6rem;
+		padding: 10px 18px;
+		border-radius: 50px;
 		cursor: pointer;
-		transition: background-color 0.3s var(--bezier-one), transform 0.3s var(--bezier-one);
+		transition:
+			background-color 0.3s var(--bezier-one),
+			transform 0.3s var(--bezier-one);
 
 		&:hover {
-			background-color: var(--elevation-four);
+			background-color: var(--elevation-three);
+			color: var(--accent);
 		}
 	}
 
 	h5 {
-		transition: all 0.3s var(--bezier-one);
+		transition: color 0.3s ease, opacity 0.3s ease;
+		opacity: 0.85;
+		font-weight: 400;
 	}
 
 	.icon-container {
 		display: none;
 	}
 
-	button:hover > h5,
 	.selected h5 {
-		color: var(--text-primary);
+		color: var(--accent);
 		opacity: 1;
+		font-weight: 500;
 	}
 
-
-	h5 {
-		opacity: 0.8;
+	/* === DESKTOP === */
+	@media (min-width: 869px) {
+		button {
+			font-size: 1rem;
+			padding: 10px 22px;
+		}
 	}
 
-	@media screen and (max-width: 868px) {
+	/* === MOBILE === */
+	@media (max-width: 868px) {
+		button {
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			gap: 0.3rem;
+			padding: 8px 12px;
+			font-size: 0.8rem;
+		}
 
 		h5 {
-			transition-delay: 0.5s;
+			margin: 0;
+			font-size: 0.75rem;
 		}
 
 		.icon-container {
 			display: block;
-			padding: 6px 24px;
-			border-radius: 100px;
-			margin-bottom: 0.4rem;
-			transition: all 0.5s var(--bezier-one);
-			transition-delay: 0.3s;
-		}
-
-		button {
-			flex-direction: column;
-			gap: 0;
-			font-size: 0.9rem;
-			margin-bottom: 0;
-		}
-
-		button:hover {
+			padding: 6px 14px;
+			border-radius: 50%;
 			background-color: transparent;
+			transition: background-color 0.4s var(--bezier-one);
 		}
 
 		button:hover .icon-container,

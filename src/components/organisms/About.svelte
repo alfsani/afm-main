@@ -1,8 +1,32 @@
-<script>
+<script lang="ts">
+	import { onMount } from 'svelte';
 	import RichPresence from '../molecules/RichPresence.svelte';
 	import Tooltip from '../atoms/Tooltip.svelte';
 
-	// i didnt write this idk
+	// ===== Efek mengetik otomatis =====
+	let fullText = `Hey there, I'm afn! :] I'm a digital artist and designer based in Canada. 
+	I’ve taken art seriously since 2017, and have been doodling silly anime characters since 2020. 
+	I also started to pivot into some programming, which landed me to study at the University of Waterloo 
+	for computer science. In my free time, I like to contribute to open source as a web developer. 
+	I'm most notable for working on ReVanced, which is probably how you found me here.`;
+
+	let displayedText = '';
+	let index = 0;
+	let typingSpeed = 25; // kecepatan mengetik (ms per huruf)
+
+	function typeWriter() {
+		if (index < fullText.length) {
+			displayedText += fullText.charAt(index);
+			index++;
+			setTimeout(typeWriter, typingSpeed);
+		}
+	}
+
+	onMount(() => {
+		typeWriter();
+	});
+
+	// ===== Hitung umur dinamis =====
 	let getAge = () => {
 		let birthDate = new Date('2007/03/24');
 		const ageMs = Date.now() - birthDate.getTime();
@@ -20,31 +44,18 @@
 	<div>
 		<RichPresence />
 	</div>
+
 	<div class="text">
 		<h2>bio</h2>
-		<p>
-			Hey there, I'm <Tooltip tip="short for affan">
-				<span>afn!</span>
-			</Tooltip> :] I'm a <Tooltip tip={age}><span>{Math.floor(Number(age))}</span></Tooltip>
-			year old digital artist and designer based in Canada. I’ve taken art seriously since
-			<span>2017</span>, and have been doodling silly anime characters since <span>2020</span>. I
-			also started to pivot into some programming, which landed me to study at the <Tooltip
-				tip="stay tuned for my WatCard progression"
-			>
-				<a href="https://cs.uwaterloo.ca/" target="_blank" rel="noreferrer">
-					<span>University of Waterloo</span>
-				</a>
-			</Tooltip>for computer science. In my free time, I like to contribute to
-			<Tooltip tip="🤓">
-				<a href="https://github.com/xafn" target="_blank" rel="noreferrer">
-					<span>open source</span>
-				</a>
-			</Tooltip>
-			as a web developer. I'm most notable for working on <Tooltip tip="<3">
-				<a href="https://revanced.app" target="_blank" rel="noreferrer">
-					<span>ReVanced</span>
-				</a>
-			</Tooltip>, which is probably how you found me here.
+
+		<!-- efek mengetik otomatis -->
+		<p class="typing">
+			{displayedText}
+		</p>
+
+		<!-- contoh tambahan: umur real-time -->
+		<p class="age">
+			Age: <Tooltip tip={age}><span>{Math.floor(Number(age))}</span></Tooltip>
 		</p>
 	</div>
 </section>
@@ -65,24 +76,31 @@
 		line-height: 1.75rem;
 	}
 
-	span {
-		font-weight: 400;
+	.typing {
 		font-family: var(--font-two);
-		font-size: 0.9rem;
-		background-color: var(--elevation-one);
-		border-radius: 7px;
-		color: var(--accent);
-		padding: 0.2rem 0.5rem 0.2rem;
-		width: fit-content;
+		white-space: pre-line; /* biar tetap ada baris baru */
+		border-right: 2px solid var(--accent);
+		animation: blink 0.75s step-end infinite;
+		font-size: 0.95rem;
 	}
 
-	a {
-		text-decoration: none;
+	.age {
+		margin-top: 1rem;
+		color: var(--text-secondary);
+	}
+
+	@keyframes blink {
+		from, to {
+			border-color: transparent;
+		}
+		50% {
+			border-color: var(--accent);
+		}
 	}
 
 	.text::before {
 		@include outlineText(
-			$content: 'afn',
+			$content: 'xxx',
 			$translateX: 97%,
 			$translateY: -5%,
 			$fontSize: 300px,
