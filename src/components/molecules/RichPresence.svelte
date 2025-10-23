@@ -5,8 +5,8 @@
 	import { user } from '../../util/discord';
 	import type { Spotify } from '../../util/types';
 
-	let activity = `@${user.username}`,
-		details = 'Fetching...',
+	let activity = `${user.username}`,
+		details = 'online',
 		activityImage = 'default.webp',
 		pulse = 30000,
 		activityNumber = 0,
