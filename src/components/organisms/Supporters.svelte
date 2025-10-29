@@ -5,7 +5,7 @@
 <section class="wrapper">
 	<div class="title">
 		<h2>supporters</h2>
-		<p>Thank you!</p>
+		<p></p>
 	</div>
 
 	<div class="supporters">

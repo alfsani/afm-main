@@ -12,12 +12,12 @@
 
 <section id="home" class="wrapper">
 	<div>
-		<h1>AGENT</h1>
-		<h4>Hobbyist illustrator and designer. <br />CS @ Waterloo.</h4>
+		<h1>0x</h1>
+		<h4><br />art of soull</h4>
 		<div class="socials">
 			<Socials />
 		</div>
-		<Button side on:click={handleClick} on:keypress={handleClick}>Discover my work ↓</Button>
+		<Button side on:click={handleClick} on:keypress={handleClick}>Deeper ↓</Button>
 	</div>
 	<HeroImage />
 </section>
